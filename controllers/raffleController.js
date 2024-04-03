@@ -9,20 +9,19 @@ const {
   } = require('../queries/raffle.js')
 
 
-  //import participant controller
-// const participantController = require('./participantController.js');
-
- //access to being able to things like get or set, update or delete
-// const participants = express.Router({ mergeParams: true });
-
-// raffles.use('/:raffleId/participants', participantController);
+//import participant controller
+const participantsController = require("./participantController.js");
+raffles.use("/:raffleId/participant", participantsController);
+  
+const winnersController = require("./winnerController.js");
+raffles.use("/:raffleId/winners", winnersController);
 
 //Index
 raffles.get('/', async (req, res) => {
     const allRaffles = await getAllRaffles();
   
     try {
-      if (allRaffles.length > 0) {
+      if (allRaffles.length ) {
         res.status(200).json({
           payload: allRaffles,
           success: true

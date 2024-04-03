@@ -1,14 +1,10 @@
 //controls the routes the way it goes for
 const express = require('express');
-const ruffles = express.Router();
 const db = require('../db/dbConfig.js');
 
-const participantController = require('./participantController.js');
-
-// //access to being able to things like get or set, update or delete
+//access to being able to things like get or set, update or delete
 const participants = express.Router({ mergeParams: true });
 
-raffles.use('/:raffleId/participants', participantController);
 //import validation
 const {
     getAllParticipants,
@@ -20,7 +16,7 @@ participants.get('/', async (req, res) => {
     const allParticipants = await getAllParticipants();
   
     try {
-      if (allParticipants.length > 0) {
+      if (allParticipants) {
         res.status(200).json({
           payload: allParticipants,
           success: true

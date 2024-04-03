@@ -11,7 +11,7 @@ winners.get('/', async (req, res) => {
   try {
     const allWinners = await getAllWinners();
   
-    if (allWinners.length > 0) {
+    if (allWinners) {
       res.status(200).json({
         payload: allWinners,
         success: true
