@@ -11,9 +11,8 @@ CREATE TABLE raffles(
     name TEXT NOT NULL,
     secret_token TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    winner_id INTEGER,
-    FOREIGN KEY (winner_id) REFERENCES participants(id)
-    
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    raffle_status TEXT NOT NULL
 );
    
 
@@ -26,8 +25,9 @@ CREATE TABLE participants(
     lastname TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     phone TEXT DEFAULT NULL,
-    participantsimg TEXT DEFAULT NULL,
+    participantimg TEXT DEFAULT NULL,
     registered_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     raffle_id INTEGER FOREIGN KEY (raffle_id)  REFERENCES raffles(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -36,8 +36,8 @@ DROP TABLE IF EXISTS winners;
 
 CREATE TABLE winners (
     id SERIAL PRIMARY KEY,
-    raffle_id INTEGER NOT NULL,
-    participant_id INTEGER NOT NULL,
-    FOREIGN KEY (raffle_id) REFERENCES raffles(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (participant_id) REFERENCES participants(id) ON UPDATE CASCADE ON DELETE CASCADE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    raffle_id INTEGER NOT NULL FOREIGN KEY (raffle_id) REFERENCES raffles(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    participant_id INTEGER NOT NULL FOREIGN KEY (participant_id) REFERENCES participants(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
